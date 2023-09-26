@@ -15,19 +15,13 @@
  */
 package com.dremio.common.util;
 
-import java.math.BigDecimal;
 
 import com.dremio.common.types.TypeProtos;
 
 public class CoreDecimalUtility {
   static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(CoreDecimalUtility.class);
 
-  public static long getDecimal18FromBigDecimal(BigDecimal input, int scale, int precision) {
-    // Truncate or pad to set the input to the correct scale
-    input = input.setScale(scale, BigDecimal.ROUND_HALF_UP);
 
-    return (input.unscaledValue().longValue());
-  }
 
   public static int getMaxPrecision(TypeProtos.MinorType decimalType) {
     if (decimalType == TypeProtos.MinorType.DECIMAL9) {
@@ -65,12 +59,7 @@ public class CoreDecimalUtility {
   public static int getPrecisionRange(int precision) {
     return getMaxPrecision(getDecimalDataType(precision));
   }
-  public static int getDecimal9FromBigDecimal(BigDecimal input, int scale, int precision) {
-    // Truncate/ or pad to set the input to the correct scale
-    input = input.setScale(scale, BigDecimal.ROUND_HALF_UP);
 
-    return (input.unscaledValue().intValue());
-  }
 
   /*
    * Helper function to detect if the given data type is Decimal

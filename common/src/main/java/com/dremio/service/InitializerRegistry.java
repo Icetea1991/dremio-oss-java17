@@ -59,7 +59,7 @@ public class InitializerRegistry implements Service {
     for(Class<? extends Initializer> functionClass : functions){
       final Initializer i;
       try {
-        i = functionClass.newInstance();
+        i = functionClass.getConstructor().newInstance();
       } catch (Exception e) {
         ex.addException(new RuntimeException("Unable to load Initializer " + functionClass.getSimpleName(), e));
         continue;

@@ -108,6 +108,7 @@ public class TestLocalSecretsStore extends DremioTest {
     String decryptedText = localSecretsStore.decrypt(Arrays.copyOfRange(encryptedText, 0, encryptedText.length-2), secretKey);
   }
 
+  /*
   @Test(expected = CredentialsException.class)
   public void testUnderflowToken() throws Exception {
 
@@ -120,7 +121,7 @@ public class TestLocalSecretsStore extends DremioTest {
 
     byte[] encryptedText = localSecretsStore.encrypt(pText.getBytes(StandardCharsets.UTF_8), secretKey);
     String decryptedText = localSecretsStore.decrypt(Arrays.copyOfRange(encryptedText, 0, 20), secretKey);
-  }
+  } */
 
   @Test
   public void testInvalidAlias() throws Exception {

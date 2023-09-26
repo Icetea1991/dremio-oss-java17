@@ -44,12 +44,12 @@ public class TestLocalValue {
     stringLocalValue.set("value1");
     intLocalValue.set(1);
     assertEquals("value1", stringLocalValue.get().get());
-    assertEquals(new Integer(1), intLocalValue.get().get());
+    assertEquals(Integer.valueOf(1), intLocalValue.get().get());
 
     stringLocalValue.set("value2");
     intLocalValue.set(2);
     assertEquals("value2", stringLocalValue.get().get());
-    assertEquals(new Integer(2), intLocalValue.get().get());
+    assertEquals(Integer.valueOf(2), intLocalValue.get().get());
 
     try {
       intLocalValue.restore(null);
@@ -84,7 +84,7 @@ public class TestLocalValue {
     stringLocalValue.restore(saved);
 
     assertEquals("value1", stringLocalValue.get().get());
-    assertEquals(new Integer(1), intLocalValue.get().get());
+    assertEquals(Integer.valueOf(1), intLocalValue.get().get());
   }
 
   @Test
@@ -129,20 +129,20 @@ public class TestLocalValue {
 
       stringLocalValue.restore(localValues);
       assertEquals("value1", stringLocalValue.get().get());
-      assertEquals(new Integer(1), intLocalValue.get().get());
+      assertEquals(Integer.valueOf(1), intLocalValue.get().get());
 
       stringLocalValue.set("value2");
       assertEquals("value2", stringLocalValue.get().get());
 
       intLocalValue.set(2);
-      assertEquals(new Integer(2), intLocalValue.get().get());
+      assertEquals(Integer.valueOf(2), intLocalValue.get().get());
     };
 
     final Future<Void> future = ThreadPerTaskExecutor.run(runnable);
     future.get();
 
     assertEquals("value1", stringLocalValue.get().get());
-    assertEquals(new Integer(1), intLocalValue.get().get());
+    assertEquals(Integer.valueOf(1), intLocalValue.get().get());
   }
 
   @Test
