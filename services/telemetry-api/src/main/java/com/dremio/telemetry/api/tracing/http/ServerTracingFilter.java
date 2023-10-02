@@ -33,9 +33,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.dremio.common.logging.StructuredLogger;
 import com.dremio.telemetry.api.Telemetry;
-import com.dremio.telemetry.api.log.RequestTracingLogProtobuf.RequestTracingLog;
 
 import io.opentelemetry.api.GlobalOpenTelemetry;
 import io.opentelemetry.api.trace.Span;
@@ -63,8 +61,8 @@ public class ServerTracingFilter implements ContainerRequestFilter, ContainerRes
   public static final String REQUEST_ID_HEADER = "X-Request-ID";
   public static final String REQUEST_TRACING_LOGGER = "tracing.logger";
 
-  private static final StructuredLogger structuredLogger =
-      StructuredLogger.get(RequestTracingLog.class, ServerTracingFilter.class.getName());
+  //private static final StructuredLogger structuredLogger =
+ //     StructuredLogger.get(RequestTracingLog.class, ServerTracingFilter.class.getName());
 
   @javax.ws.rs.core.Context
   private ResourceInfo resourceInfo;
@@ -196,7 +194,7 @@ public class ServerTracingFilter implements ContainerRequestFilter, ContainerRes
   private void logRequestTraceInfo(String requestId, Span span) {
     String traceId = span.getSpanContext().getTraceId();
     String spanId = span.getSpanContext().getSpanId();
-    structuredLogger.info(RequestTracingLog.newBuilder()
+    /*structuredLogger.info(RequestTracingLog.newBuilder()
                 .setRequestId(requestId)
                 .setTraceId(traceId)
                 .setSpanId(spanId)
@@ -204,7 +202,7 @@ public class ServerTracingFilter implements ContainerRequestFilter, ContainerRes
             "Using request id [{}]; trace id [{}]; span id [{}] for the request.",
             requestId,
             traceId,
-            traceId);
+            traceId); */
   }
 
   private boolean shouldHandleRequestId(Span span) {

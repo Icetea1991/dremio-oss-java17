@@ -31,14 +31,15 @@
   <name>Protocol</name>
 
   <properties>
-    <maven.compiler.release>11</maven.compiler.release>
-    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.release>17</maven.compiler.release>
+    <maven.compiler.source>17</maven.compiler.source>
   </properties>
 
   <dependencies>
     <dependency>
       <groupId>com.google.protobuf</groupId>
       <artifactId>protobuf-java</artifactId>
+      <version>3.24.3</version>
     </dependency>
     <dependency>
       <groupId>io.protostuff</groupId>
@@ -147,6 +148,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
+        <version>3.3.0</version>
         <executions>
           <execution>
             <id>proto-jar-resources</id>

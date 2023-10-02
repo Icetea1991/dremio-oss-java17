@@ -18,6 +18,7 @@ package org.apache.arrow.vector;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.RoundingMode;
 
 import org.apache.arrow.memory.ArrowBuf;
 
@@ -78,10 +79,10 @@ public final class DecimalHelper {
     }
 
     // Truncate the input as per the scale provided
-    input = input.setScale(scale, BigDecimal.ROUND_HALF_UP);
+    input = input.setScale(scale, RoundingMode.HALF_UP);
 
     // Separate out the integer part
-    BigDecimal integerPart = input.setScale(0, BigDecimal.ROUND_DOWN);
+    BigDecimal integerPart = input.setScale(0, RoundingMode.DOWN);
 
     int destIndex = nDecimalDigits - roundUp(scale) - 1;
 
@@ -90,7 +91,7 @@ public final class DecimalHelper {
       data.setInt(startIndex + (destIndex * INTEGER_SIZE), (integerPart.remainder(BASE_BIGDECIMAL)).intValue());
       destIndex--;
       // Divide by base 1 billion
-      integerPart = (integerPart.divide(BASE_BIGDECIMAL)).setScale(0, BigDecimal.ROUND_DOWN);
+      integerPart = (integerPart.divide(BASE_BIGDECIMAL)).setScale(0, RoundingMode.DOWN);
     }
 
     /* Sparse representation contains padding of additional zeroes
@@ -100,7 +101,7 @@ public final class DecimalHelper {
     if (actualDigits != 0) {
       // Pad additional zeroes
       scale = scale + (MAX_DIGITS - actualDigits);
-      input = input.setScale(scale, BigDecimal.ROUND_DOWN);
+      input = input.setScale(scale, RoundingMode.DOWN);
     }
 
     //separate out the fractional part
@@ -116,7 +117,7 @@ public final class DecimalHelper {
       data.setInt(startIndex + (destIndex * INTEGER_SIZE), (temp.unscaledValue().intValue()));
       destIndex--;
 
-      fractionalPart = fractionalPart.setScale(0, BigDecimal.ROUND_DOWN);
+      fractionalPart = fractionalPart.setScale(0, RoundingMode.DOWN);
       scale -= MAX_DIGITS;
     }
 

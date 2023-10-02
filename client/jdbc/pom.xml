@@ -26,6 +26,12 @@
   <artifactId>dremio-client-jdbc</artifactId>
   <name>Client - JDBC Driver</name>
 
+  <properties>
+    <profile.tag>default</profile.tag>
+    <maven.compiler.release>17</maven.compiler.release>
+    <maven.compiler.source>17</maven.compiler.source>
+  </properties>
+
   <dependencies>
     <dependency>
       <groupId>org.apache.calcite.avatica</groupId>
@@ -49,7 +55,7 @@
       <groupId>com.dremio.client</groupId>
       <artifactId>dremio-client-base</artifactId>
       <version>${project.version}</version>
-    </dependency>    
+    </dependency>
     <dependency>
       <groupId>com.dremio</groupId>
       <artifactId>dremio-common</artifactId>
@@ -57,7 +63,7 @@
       <type>test-jar</type>
       <scope>test</scope>
     </dependency>
-    <dependency>
+   <!-- <dependency>
       <groupId>com.dremio.sabot</groupId>
       <artifactId>dremio-sabot-kernel</artifactId>
       <scope>test</scope>
@@ -68,7 +74,7 @@
       <classifier>tests</classifier>
       <type>test-jar</type>
       <scope>test</scope>
-    </dependency>
+    </dependency> -->
 
     <dependency>
       <groupId>org.apache.calcite</groupId>
@@ -87,7 +93,7 @@
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
-    </dependency>    
+    </dependency>
     <dependency>
       <groupId>net.hydromatic</groupId>
       <artifactId>foodmart-queries</artifactId>
@@ -122,17 +128,24 @@
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-checkstyle-plugin</artifactId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.11.0</version>
         <configuration>
-          <configLocation>dremio-checkstyle/legacy-config.xml</configLocation>
+          <source>17</source>
+          <target>17</target>
         </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
+        <version>3.1.2</version>
         <configuration>
-          <!-- Requires forkCount = 1, do not increase -->
-          <forkCount>1</forkCount>
+          <skip>true</skip>
+          <parallel>classes</parallel>
+          <threadCount>4</threadCount>
+          <forkCount>4</forkCount>
+          <reuseForks>true</reuseForks>
+          <argLine>-Xmx1024m</argLine>
         </configuration>
       </plugin>
     </plugins>

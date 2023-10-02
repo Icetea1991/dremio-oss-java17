@@ -41,6 +41,7 @@ class ProxiesManager {
     this.reporter = reporter;
   }
 
+  /*
   private Class<Proxy> getProxyClassForInterface( final Class<?> interfaceType ) {
     assert interfaceType.isInterface();
 
@@ -56,7 +57,7 @@ class ProxiesManager {
       proxyReturnClass = newProxyReturnClass;
     }
     return proxyReturnClass;
-  }
+  } */
 
 
   /**
@@ -84,7 +85,7 @@ class ProxiesManager {
     } else {
       // Original we haven't seen yet--create proxy instance and return that.
 
-      Class<Proxy> proxyReturnClass = getProxyClassForInterface( declaredType );
+     // Class<Proxy> proxyReturnClass = getProxyClassForInterface( declaredType );
 
       // Create tracing handler instance for this proxy/original pair.
       final InvocationHandler callHandler =
@@ -95,14 +96,11 @@ class ProxiesManager {
         @SuppressWarnings("unchecked")
         INTF newProxyInstance =
             (INTF)
-            proxyReturnClass
-            .getConstructor( new Class[] { InvocationHandler.class } )
-            .newInstance( new Object[] { callHandler } );
+              Proxy.newProxyInstance(declaredType.getClassLoader(), new Class[] {declaredType}, callHandler);
+
         proxiedsToProxiesMap.put( originalInstance, newProxyInstance );
         proxyInstance = newProxyInstance;
-      } catch ( InstantiationException | IllegalAccessException
-              | IllegalArgumentException | InvocationTargetException
-              | NoSuchMethodException | SecurityException e ) {
+      } catch (IllegalArgumentException | SecurityException e ) {
         throw new RuntimeException(
             "Error creating proxy for " + declaredType + ": " + e , e );
       }

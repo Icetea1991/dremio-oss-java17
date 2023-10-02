@@ -37,7 +37,7 @@
         Dependencies version for this module
         Submodules should rely on dependenciesManagement as much as possible
     -->
-    <arrow.version>9.0.0-20221123064031-c39b8a6253-dremio</arrow.version>
+    <arrow.version>13.0.0</arrow.version>
     <avatica.version>1.23.0</avatica.version>
     <calcite.version>1.17.0-202305081555330806-ba52e3e7</calcite.version>
     <derby.version>10.14.2.0</derby.version>
@@ -155,8 +155,8 @@
     <snowflake-jdbc.version>3.13.30</snowflake-jdbc.version>
     <twill.version>0.14.0-202111020547020344-41637331</twill.version>
     <zkclient.version>0.10</zkclient.version>
-    <zookeeper.version>3.4.14</zookeeper.version>
-    <curator.version>4.2.0</curator.version>
+    <zookeeper.version>3.6.4</zookeeper.version>
+    <curator.version>5.5.0</curator.version>
     <curator-test.version>2.12.0</curator-test.version>
     <aws-sdk.version>1.12.400</aws-sdk.version>
     <aws-sdk-2.version>2.17.295</aws-sdk-2.version>
@@ -464,7 +464,7 @@
         <!-- This jar is a dependency of com.mapr.hadoop:maprfs jar.
              For some reason it is not packaged by the assembly plugin. Include it explicitly. -->
         <org.json.version>20080701</org.json.version>
-        <zookeeper.version>3.5.6.0-mapr-2009</zookeeper.version>
+        <zookeeper.version>3.6.4</zookeeper.version>
         <!-- The version of protobuf to shade with MapR FS -->
         <maprfs.protobuf.version>3.11.1</maprfs.protobuf.version>
         <hbase.version>1.4.13.200-eep-810</hbase.version>
@@ -674,75 +674,6 @@
         <groupId>kr.motd.maven</groupId>
         <artifactId>os-maven-plugin</artifactId>
         <extensions>true</extensions>
-      </plugin>
-      <plugin>
-        <groupId>com.diffplug.spotless</groupId>
-        <artifactId>spotless-maven-plugin</artifactId>
-        <configuration>
-          <!-- See https://github.com/diffplug/spotless/tree/main/plugin-maven#java -->
-          <java>
-            <endWithNewline/>
-            <importOrder>
-              <!-- This is replicating the import order from checkstyle -->
-              <!-- Trailing comma matters, since empty item stands for all other imports -->
-              <order>java.,javax.,org.,com.,</order>
-            </importOrder>
-            <indent>
-              <spaces>true</spaces>
-              <spacesPerTab>2</spacesPerTab>
-            </indent>
-            <removeUnusedImports/>
-            <toggleOffOn/>
-            <trimTrailingWhitespace/>
-          </java>
-        </configuration>
-        <executions>
-          <execution>
-            <goals>
-              <goal>check</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <artifactId>maven-checkstyle-plugin</artifactId>
-        <configuration>
-          <!-- Specify source and test directories to not included generated source directories -->
-          <sourceDirectories>
-            <sourceDirectory>${project.basedir}/src/main/java</sourceDirectory>
-          </sourceDirectories>
-          <testSourceDirectories>
-            <testSourceDirectory>${project.basedir}/src/test/java</testSourceDirectory>
-          </testSourceDirectories>
-          <failsOnError>true</failsOnError>
-          <consoleOutput>true</consoleOutput>
-          <includeResources>true</includeResources>
-          <includeTestResources>true</includeTestResources>
-          <resourceIncludes>**/*.properties,**/*.conf,**/*.json,**/*.xml</resourceIncludes>
-          <includeTestSourceDirectory>true</includeTestSourceDirectory>
-          <configLocation>dremio-checkstyle/checkstyle-config.xml</configLocation>
-        </configuration>
-        <dependencies>
-          <dependency>
-            <groupId>com.puppycrawl.tools</groupId>
-            <artifactId>checkstyle</artifactId>
-            <version>9.3</version>
-          </dependency>
-          <dependency>
-            <groupId>com.dremio.tools</groupId>
-            <artifactId>dremio-build-tools</artifactId>
-            <version>${project.version}</version>
-          </dependency>
-        </dependencies>
-        <executions>
-          <execution>
-            <id>checkstyle-verification</id>
-            <phase>verify</phase>
-            <goals>
-              <goal>check</goal>
-            </goals>
-          </execution>
-        </executions>
       </plugin>
       <plugin>
         <artifactId>maven-resources-plugin</artifactId>
@@ -1277,10 +1208,6 @@ limitations under the License.
         <plugin>
           <artifactId>maven-assembly-plugin</artifactId>
           <version>3.5.0</version>
-        </plugin>
-        <plugin>
-          <artifactId>maven-checkstyle-plugin</artifactId>
-          <version>3.2.1</version>
         </plugin>
         <plugin>
           <artifactId>maven-shade-plugin</artifactId>
@@ -3705,7 +3632,7 @@ limitations under the License.
       <dependency>
         <groupId>org.xerial.snappy</groupId>
         <artifactId>snappy-java</artifactId>
-        <version>1.1.4</version>
+        <version>1.1.10.4</version>
       </dependency>
       <dependency>
         <groupId>org.immutables</groupId>

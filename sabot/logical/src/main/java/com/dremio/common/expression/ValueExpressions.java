@@ -18,6 +18,7 @@ package com.dremio.common.expression;
 import static java.util.concurrent.TimeUnit.NANOSECONDS;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -357,7 +358,7 @@ public class ValueExpressions {
       Preconditions.checkArgument(precision >= scale,
         "invalid precision " + precision + ", must be >= scale " + scale);
       BigDecimal decimal;
-      decimal = input.setScale(scale, BigDecimal.ROUND_HALF_UP);
+      decimal = input.setScale(scale, RoundingMode.HALF_UP);
       // Decimal value will be 0 if there is precision overflow.
       // This is similar to DecimalFunctions:CastDecimalDecimal
       if(decimal.precision() > precision) {

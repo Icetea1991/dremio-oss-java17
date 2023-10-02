@@ -26,6 +26,11 @@
   <artifactId>dremio-services-base-rpc</artifactId>
   <name>Services - Base RPC</name>
 
+  <properties>
+    <maven.compiler.release>17</maven.compiler.release>
+    <maven.compiler.source>17</maven.compiler.source>
+  </properties>
+
   <dependencies>
     <dependency>
       <groupId>com.dremio</groupId>

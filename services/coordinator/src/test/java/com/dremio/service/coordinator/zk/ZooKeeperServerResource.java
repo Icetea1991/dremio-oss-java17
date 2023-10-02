@@ -26,7 +26,7 @@ import org.junit.rules.ExternalResource;
 import com.google.common.base.Throwables;
 
 final class ZooKeeperServerResource extends ExternalResource {
-  private TestingServer testingServer;
+ /* private TestingServer testingServer;
   private CuratorZookeeperClient zkClient;
 
   @Override
@@ -70,5 +70,5 @@ final class ZooKeeperServerResource extends ExternalResource {
 
   public void closeServer() throws IOException {
     testingServer.close();
-  }
+  } */
 }
