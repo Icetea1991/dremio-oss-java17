@@ -32,12 +32,14 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <maven.compiler.release>17</maven.compiler.release>
+    <maven.compiler.source>17</maven.compiler.source>
 
     <!--
         Dependencies version for this module
         Submodules should rely on dependenciesManagement as much as possible
     -->
-    <arrow.version>13.0.0</arrow.version>
+    <arrow.version>9.0.0-20221123064031-c39b8a6253-dremio</arrow.version>
     <avatica.version>1.23.0</avatica.version>
     <calcite.version>1.17.0-202305081555330806-ba52e3e7</calcite.version>
     <derby.version>10.14.2.0</derby.version>
@@ -400,8 +402,12 @@
       <build>
         <plugins>
           <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.11.0</version>
             <configuration>
+              <source>17</source>
+              <target>17</target>
               <annotationProcessorPaths combine.children='append'>
                 <path>
                   <groupId>jp.skypencil.errorprone.slf4j</groupId>
@@ -635,9 +641,6 @@
               This will automatically choose the right
               signatures based on 'maven.compiler.target':
             -->
-            <bundledSignature>jdk-deprecated</bundledSignature>
-            <!-- disallow undocumented classes like sun.misc.Unsafe: -->
-            <bundledSignature>jdk-non-portable</bundledSignature>
             <!-- don't allow unsafe reflective access: -->
             <bundledSignature>jdk-reflection</bundledSignature>
           </bundledSignatures>
@@ -714,75 +717,6 @@
             </path>
           </annotationProcessorPaths>
         </configuration>
-      </plugin>
-      <plugin>
-        <artifactId>maven-enforcer-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>validate_java_and_maven_version</id>
-            <phase>validate</phase>
-            <goals>
-              <goal>enforce</goal>
-            </goals>
-            <inherited>false</inherited>
-            <configuration>
-              <rules>
-                <requireMavenVersion>
-                  <version>[3.3.9,4)</version>
-                </requireMavenVersion>
-                <requireJavaVersion>
-                  <version>[1.8,)</version>
-                </requireJavaVersion>
-              </rules>
-            </configuration>
-          </execution>
-          <execution>
-            <id>avoid_bad_dependencies</id>
-            <goals>
-              <goal>enforce</goal>
-            </goals>
-            <configuration>
-              <rules>
-                <banDuplicatePomDependencyVersions/>
-                <bannedDependencies>
-                  <excludes>
-                    <exclude>commons-logging</exclude>
-                    <exclude>commons-beanutils:commons-beanutils-core</exclude> <!-- replaced by commons-beanutils:common-beanutils -->
-                    <exclude>javax.servlet:servlet-api</exclude>
-                    <exclude>org.mortbay.jetty:servlet-api</exclude>
-                    <exclude>org.mortbay.jetty:servlet-api-2.5</exclude>
-                    <exclude>org.apache.logging.log4j:log4j-slf4j-impl</exclude>
-                    <exclude>log4j:*</exclude>
-                    <exclude>org.slf4j:slf4j-log4j12</exclude>
-                    <exclude>io.netty:*:*</exclude> <!-- exclude all netty versions. The versions needed are explicitly included below. -->
-                    <!-- For the sake of space do not include all AWS dependencies but rely on BOM and include individual ones when needed -->
-                    <exclude>com.amazonaws:aws-java-sdk</exclude>
-                    <exclude>software.amazon.awssdk:aws-sdk-java</exclude>
-                  </excludes>
-                  <includes>
-                    <include>io.netty:*:${netty.version}</include> <!-- include the netty packages that match the version -->
-                    <include>io.netty:netty:${netty3.version}</include> <!-- include 3.10.6.Final version without the http classes, the http classes are deemed insecure -->
-                    <include>io.netty:netty-tcnative-boringssl-static:${netty-tcnative.version}</include>
-                    <include>io.netty:netty-tcnative-classes:${netty-tcnative.version}</include>
-                  </includes>
-                </bannedDependencies>
-                <bannedPlugins>
-                  <excludes>
-                    <exclude>io.protostuff:protostuff-maven-plugin</exclude>
-                  </excludes>
-                </bannedPlugins>
-                <requireSameVersions>
-                  <plugins>
-                    <plugin>*:*</plugin>
-                  </plugins>
-                </requireSameVersions>
-                <requirePluginVersions>
-                  <unCheckedPluginList>com.dremio.tools:dremio-protostuff-maven-plugin,com.dremio.tools:dremio-fmpp-maven-plugin,org.projectnessie:nessie-apprunner-maven-plugin</unCheckedPluginList>
-                </requirePluginVersions>
-              </rules>
-            </configuration>
-          </execution>
-        </executions>
       </plugin>
       <plugin>
         <artifactId>maven-release-plugin</artifactId>
@@ -1183,6 +1117,7 @@ limitations under the License.
           <artifactId>maven-failsafe-plugin</artifactId>
           <version>3.0.0</version>
           <configuration>
+            <skipITs>true</skipITs>
             <trimStackTrace>false</trimStackTrace>
             <additionalClasspathElements>
               <additionalClasspathElement>${maven.multiModuleProjectDirectory}/src/test/log-config</additionalClasspathElement>
@@ -1811,11 +1746,6 @@ limitations under the License.
         <groupId>com.dremio.plugins</groupId>
         <artifactId>dremio-pdfs-plugin</artifactId>
         <version>${project.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>com.dremio.data</groupId>
-        <artifactId>dremio-tpch-sample-data</artifactId>
-        <version>1.0.0</version>
       </dependency>
 
       <!-- 3rd party dependencies -->

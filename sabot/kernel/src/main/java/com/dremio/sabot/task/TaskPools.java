@@ -30,7 +30,7 @@ public final class TaskPools {
   public static TaskPoolFactory newFactory(SabotConfig config) {
     final TaskPoolFactory factory;
     if (config.hasPath(TaskPools.DREMIO_TASK_POOL_FACTORY_CLASS)) {
-      factory = config.getInstanceOf(TaskPools.DREMIO_TASK_POOL_FACTORY_CLASS, TaskPoolFactory.class);
+      factory = config.getInstance(TaskPools.DREMIO_TASK_POOL_FACTORY_CLASS, TaskPoolFactory.class);
     } else {
       factory = new DedicatedTaskPool.Factory();
     }

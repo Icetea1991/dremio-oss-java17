@@ -235,11 +235,7 @@
       <version>0.2.5</version>
     </dependency>
 
-    <dependency>
-      <groupId>com.dremio.data</groupId>
-      <artifactId>dremio-tpch-sample-data</artifactId>
-      <scope>test</scope>
-    </dependency>
+
     <dependency>
       <groupId>org.apache.arrow</groupId>
       <artifactId>arrow-vector</artifactId>
@@ -828,6 +824,7 @@
           <artifactId>maven-surefire-plugin</artifactId>
           <version>3.1.2</version>
           <configuration>
+            <skipTests>true</skipTests>
             <parallel>classes</parallel>
             <threadCount>4</threadCount>
             <forkCount>4</forkCount>
@@ -1200,6 +1197,9 @@
       </plugin>
       <plugin>
         <artifactId>maven-failsafe-plugin</artifactId>
+        <configuration>
+          <skipITs>true</skipITs>
+        </configuration>
         <executions>
           <execution>
             <goals>

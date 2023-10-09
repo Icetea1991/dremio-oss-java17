@@ -85,10 +85,26 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
-        <configuration>
-          <excludes combine.self="override">
-          </excludes>
-        </configuration>
+        <version>3.3.0</version>
+        <executions>
+          <execution>
+            <id>default-jar</id>
+            <phase>package</phase>
+            <configuration>
+              <excludes combine.self="override">
+              </excludes>
+              <archive>
+                <manifestEntries>
+                  <Add-Opens>java.base/java.nio</Add-Opens>
+                </manifestEntries>
+              </archive>
+            </configuration>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+
+          </execution>
+        </executions>
       </plugin>
 
       <plugin>
