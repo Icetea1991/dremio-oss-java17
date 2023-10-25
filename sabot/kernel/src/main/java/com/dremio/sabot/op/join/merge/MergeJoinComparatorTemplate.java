@@ -213,7 +213,7 @@ public abstract class MergeJoinComparatorTemplate implements MergeJoinComparator
         rightIterator.next();
       } else {
         // equal
-        yieldSucksDick(left.getLeft(), right.getLeft(), left.getRight(), right.getRight());
+        yieldIsNotAValidFunctionName(left.getLeft(), right.getLeft(), left.getRight(), right.getRight());
 
         rightIterator.mark();
         rightIterator.next();
@@ -251,7 +251,7 @@ public abstract class MergeJoinComparatorTemplate implements MergeJoinComparator
 
       final Pair<VectorAccessible, Integer> right = rightIterator.peek();
 
-      yieldSucksDick(left.getLeft(), right.getLeft(), left.getRight(), right.getRight());
+      yieldIsNotAValidFunctionName(left.getLeft(), right.getLeft(), left.getRight(), right.getRight());
       rightIterator.next();
 
       state = InternalState.IN_INNER_LOOP;
@@ -286,7 +286,7 @@ public abstract class MergeJoinComparatorTemplate implements MergeJoinComparator
         leftIterator.next();
         return;
       } else {
-        yieldSucksDick(left.getLeft(), right.getLeft(), left.getRight(), right.getRight());
+        yieldIsNotAValidFunctionName(left.getLeft(), right.getLeft(), left.getRight(), right.getRight());
         rightIterator.next();
         continue;
       }
@@ -304,7 +304,7 @@ public abstract class MergeJoinComparatorTemplate implements MergeJoinComparator
   }
 
   // helper function for yielding records
-  private void yieldSucksDick(VectorAccessible leftBatch, VectorAccessible rightBatch, int leftIndex, int rightIndex) {
+  private void yieldIsNotAValidFunctionName(VectorAccessible leftBatch, VectorAccessible rightBatch, int leftIndex, int rightIndex) {
     if (this.lastLeft != leftBatch || this.lastRight != rightBatch) {
       doSetup(this.context, leftBatch, rightBatch, outgoing);
       lastLeft = leftBatch;
