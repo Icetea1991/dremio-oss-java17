@@ -380,15 +380,6 @@ public class SabotConfig extends NestedConfig {
     }
   }
 
-  public <T> T getInstanceOf(String location, Class<T> clazz) throws SabotConfigurationException{
-    final Class<? extends T> c = getClassAt(location, clazz);
-    try {
-      final T t = c.newInstance();
-      return t;
-    } catch (Exception ex) {
-      throw new SabotConfigurationException(String.format("Failure while instantiating class [%s] located at '%s.", clazz.getCanonicalName(), location), ex);
-    }
-  }
 
   @Override
   public SabotConfig withValue(String path, ConfigValue value) {

@@ -27,11 +27,24 @@
   <artifactId>dremio-services-telemetry-api</artifactId>
   <name>Services - Telemetry - API</name>
 
+
+  <properties>
+    <maven.compiler.release>17</maven.compiler.release>
+    <maven.compiler.source>17</maven.compiler.source>
+  </properties>
+
   <dependencies>
     <dependency>
       <groupId>com.dremio</groupId>
       <artifactId>dremio-common</artifactId>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/org.eclipse.jetty/jetty-server -->
+    <dependency>
+      <groupId>org.eclipse.jetty</groupId>
+      <artifactId>jetty-server</artifactId>
+      <version>9.4.51.v20230217</version>
+    </dependency>
+
     <!-- required for exporting dropwizard metrics to prometheus format -->
     <dependency>
       <groupId>io.prometheus</groupId>
@@ -164,40 +177,30 @@
   <build>
     <plugins>
       <plugin>
-        <groupId>org.xolstice.maven.plugins</groupId>
-        <artifactId>protobuf-maven-plugin</artifactId>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.11.0</version>
         <configuration>
-          <clearOutputDirectory>false</clearOutputDirectory>
+          <source>17</source>
+          <target>17</target>
         </configuration>
-        <executions>
-          <execution>
-            <id>generate-proto</id>
-            <phase>generate-sources</phase>
-            <goals>
-              <goal>compile</goal>
-            </goals>
-            <configuration>
-              <protoSourceRoot>${project.basedir}/src/main/proto</protoSourceRoot>
-              <outputDirectory>${project.build.directory}/generated-sources/protobuf</outputDirectory>
-            </configuration>
-          </execution>
-        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>3.1.2</version>
+        <configuration>
+          <parallel>classes</parallel>
+          <threadCount>4</threadCount>
+          <forkCount>4</forkCount>
+          <reuseForks>true</reuseForks>
+          <argLine>-Xmx1024m</argLine>
+        </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
         <executions>
-          <execution>
-            <id>proto-jar-resources</id>
-            <phase>package</phase>
-            <goals>
-              <goal>jar</goal>
-            </goals>
-            <configuration>
-              <classesDirectory>${project.basedir}/src/main/proto</classesDirectory>
-              <classifier>proto</classifier>
-            </configuration>
-          </execution>
         </executions>
       </plugin>
     </plugins>

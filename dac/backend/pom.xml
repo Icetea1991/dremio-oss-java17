@@ -228,10 +228,6 @@
       <artifactId>dremio-sabot-kernel</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.dremio.data</groupId>
-      <artifactId>dremio-tpch-sample-data</artifactId>
-    </dependency>
-    <dependency>
       <groupId>com.beust</groupId>
       <artifactId>jcommander</artifactId>
     </dependency>

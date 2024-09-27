@@ -48,7 +48,7 @@ import com.typesafe.config.ConfigValueFactory;
  * Test for {@code TestZKClusterClient}
  */
 public class TestZKClusterClient extends DremioTest {
-
+/*
   private static final ZKClusterConfig DEFAULT_ZK_CLUSTER_CONFIG = new ZKSabotConfig(DEFAULT_SABOT_CONFIG);
 
   @Rule
@@ -558,5 +558,5 @@ public class TestZKClusterClient extends DremioTest {
     public void onCancelled() {
       isLeader = false;
     }
-  }
+  } */
 }

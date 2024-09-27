@@ -46,7 +46,7 @@ public class TestRequestContext {
 
     final FutureTask<Boolean> task = new FutureTask<>(() -> {
       assertEquals("map test", RequestContext.current().get(stringKey));
-      assertEquals(new Integer(3), RequestContext.current().get(intKey));
+      assertEquals(Integer.valueOf(3), RequestContext.current().get(intKey));
 
       return true;
     });
@@ -70,7 +70,7 @@ public class TestRequestContext {
 
     final FutureTask<Boolean> task = new FutureTask<>(() -> {
       assertEquals("test", RequestContext.current().get(stringKey));
-      assertEquals(new Integer(2), RequestContext.current().get(intKey));
+      assertEquals(Integer.valueOf(2), RequestContext.current().get(intKey));
 
       RequestContext.current().with(stringKey, "test2");
       assertEquals("test", RequestContext.current().get(stringKey));
@@ -102,7 +102,7 @@ public class TestRequestContext {
       .with(intKey, 2)
       .call(() -> {
         assertEquals("test", RequestContext.current().get(stringKey));
-        assertEquals(new Integer(2), RequestContext.current().get(intKey));
+        assertEquals(Integer.valueOf(2), RequestContext.current().get(intKey));
 
         RequestContext.current().with(stringKey, "test2");
         assertEquals("test", RequestContext.current().get(stringKey));

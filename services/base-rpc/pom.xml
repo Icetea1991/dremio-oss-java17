@@ -26,6 +26,11 @@
   <artifactId>dremio-services-base-rpc</artifactId>
   <name>Services - Base RPC</name>
 
+  <properties>
+    <maven.compiler.release>17</maven.compiler.release>
+    <maven.compiler.source>17</maven.compiler.source>
+  </properties>
+
   <dependencies>
     <dependency>
       <groupId>com.dremio</groupId>
@@ -116,7 +121,29 @@
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.11.0</version>
+        <configuration>
+          <source>17</source>
+          <target>17</target>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>3.1.2</version>
+        <configuration>
+          <parallel>classes</parallel>
+          <threadCount>4</threadCount>
+          <forkCount>4</forkCount>
+          <reuseForks>true</reuseForks>
+          <argLine>-Xmx1024m</argLine>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>3.9.1</version>
         <configuration>
           <configLocation>dremio-checkstyle/legacy-config.xml</configLocation>
         </configuration>

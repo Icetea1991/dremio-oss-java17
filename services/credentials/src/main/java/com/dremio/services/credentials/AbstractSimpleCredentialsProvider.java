@@ -16,7 +16,6 @@
 package com.dremio.services.credentials;
 
 import java.net.URI;
-import java.util.Objects;
 
 import com.google.common.base.Preconditions;
 
@@ -28,7 +27,10 @@ public abstract class AbstractSimpleCredentialsProvider implements CredentialsPr
   private final String scheme;
 
   protected AbstractSimpleCredentialsProvider(String scheme) {
-    this.scheme = Objects.requireNonNull(scheme);
+    if (scheme == null) {
+      throw new NullPointerException();
+    }
+    this.scheme = scheme;
   }
 
   @Override

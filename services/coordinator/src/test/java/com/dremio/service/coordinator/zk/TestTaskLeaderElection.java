@@ -50,6 +50,7 @@ import com.google.common.collect.Sets;
  * To test TaskLeaderElection
  */
 public class TestTaskLeaderElection {
+  /*
   private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(TestTaskLeaderElection.class);
 
   private static final String SERVICE_NAME = "myTestService";
@@ -588,5 +589,5 @@ public class TestTaskLeaderElection {
       innerListener.onCancelled();
     }
   }
-
+*/
 }

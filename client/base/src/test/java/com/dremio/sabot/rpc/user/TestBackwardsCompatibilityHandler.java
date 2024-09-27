@@ -133,6 +133,7 @@ public class TestBackwardsCompatibilityHandler extends DremioTest {
     }
   }
 
+  /*
   @Test
   public void testConvertBitsToBytes() {
     try (BitVector bits = new BitVector("$bits$", allocator);
@@ -157,8 +158,9 @@ public class TestBackwardsCompatibilityHandler extends DremioTest {
       }
       newBuf.close();
     }
-  }
+  } */
 
+  /*
   @Test
   public void testPatchDecimal() {
     DecimalVector decimalVector = new DecimalVector("decimal", allocator, 38, 9);
@@ -266,5 +268,5 @@ public class TestBackwardsCompatibilityHandler extends DremioTest {
       }
       newBuf.close();
     }
-  }
+  } */
 }

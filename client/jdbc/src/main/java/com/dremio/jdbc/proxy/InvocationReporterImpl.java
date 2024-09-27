@@ -30,6 +30,8 @@ import java.util.TreeSet;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.lang.ClassLoader;
+
 
 /**
  * Implementation of InvocationReporter.
@@ -60,11 +62,11 @@ class InvocationReporterImpl implements InvocationReporter
     someReference = javax.sql.rowset.spi.SyncFactory.class;
 
     Set<Package> set = new HashSet<>();
-    set.add( Package.getPackage( "java.sql" ) );
-    set.add( Package.getPackage( "javax.sql" ) );
-    set.add( Package.getPackage( "javax.sql.rowset" ) );
-    set.add( Package.getPackage( "javax.sql.rowset.serial" ) );
-    set.add( Package.getPackage( "javax.sql.rowset.spi" ) );
+    set.add(ClassLoader.getSystemClassLoader().getDefinedPackage( "java.sql" ) );
+    set.add(ClassLoader.getSystemClassLoader().getDefinedPackage( "javax.sql" ) );
+    set.add(ClassLoader.getSystemClassLoader().getDefinedPackage("javax.sql.rowset"));
+    set.add(ClassLoader.getSystemClassLoader().getDefinedPackage( "javax.sql.rowset.serial" ) );
+    set.add(ClassLoader.getSystemClassLoader().getDefinedPackage( "javax.sql.rowset.spi" ) );
     for ( Package p : set ) {
       assert null != p
           : "null Package; missing reference to class in that package?";
@@ -87,8 +89,8 @@ class InvocationReporterImpl implements InvocationReporter
           }
         } );
     set.addAll( JDBC_PACKAGES );
-    set.add( Package.getPackage( "java.util" ) );
-    set.add( Package.getPackage( "java.lang" ) );
+    set.add( ClassLoader.getSystemClassLoader().getDefinedPackage( "java.util" ) );
+    set.add( ClassLoader.getSystemClassLoader().getDefinedPackage( "java.lang" ) );
     PACKAGES_TO_ABBREVIATE = Collections.unmodifiableSortedSet( set );
   }
 

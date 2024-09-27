@@ -36,6 +36,5 @@
   <modules>
     <module>jdbc-driver</module>
     <module>resources</module>
-    <module>server</module>
   </modules>
 </project>
